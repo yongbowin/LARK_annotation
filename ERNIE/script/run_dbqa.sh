@@ -1,5 +1,9 @@
 set -eux
 
+# data path
+export MODEL_PATH="/home/wangyongbo/2019rc/LARK/ERNIE/data"
+export TASK_DATA_PATH="/home/wangyongbo/2019rc/LARK/ERNIE/data/task_data"
+
 export FLAGS_sync_nccl_allreduce=1
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 
