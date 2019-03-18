@@ -120,7 +120,7 @@ def evaluate_map(preds):
     def singe_map(st, en):
         total_p = 0.0
         correct_num = 0.0
-        for index in xrange(st, en):
+        for index in range(st, en):
             if int(preds[index][2]) != 0:
                 correct_num += 1
                 total_p += correct_num / (index - st + 1)
@@ -132,7 +132,7 @@ def evaluate_map(preds):
     total_map = 0.0
     qnum = 0.0
     st = 0
-    for i in xrange(len(preds)):
+    for i in range(len(preds)):
         qid = preds[i][0]
         if qid != last_qid:
             qnum += 1

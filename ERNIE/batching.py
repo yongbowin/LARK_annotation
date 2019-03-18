@@ -59,7 +59,7 @@ def mask(batch_tokens,
                 if prob > 0.15:
                     pass
                 else:
-                    for index in xrange(beg, token_index):
+                    for index in range(beg, token_index):
                         prob = prob_mask[prob_index + index]
                         base_prob = 1.0
                         if index == beg:

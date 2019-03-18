@@ -92,7 +92,7 @@ def chunk_eval(np_labels, np_infers, np_lens, tag_num, dev_count=1):
         chunks = []
         cur_chunk = None
         null_index = tag_num - 1
-        for index in xrange(len(seq)):
+        for index in range(len(seq)):
             tag = seq[index]
             tag_type = tag // 2
             tag_pos = tag % 2
@@ -133,13 +133,13 @@ def chunk_eval(np_labels, np_infers, np_lens, tag_num, dev_count=1):
     all_lens = np_lens.reshape([dev_count, -1]).astype(np.int32).tolist()
 
     base_index = 0
-    for dev_index in xrange(dev_count):
+    for dev_index in range(dev_count):
         lens = all_lens[dev_index]
         max_len = 0
         for l in lens:
             max_len = max(max_len, l)
 
-        for i in xrange(len(lens)):
+        for i in range(len(lens)):
             seq_st = base_index + i * max_len + 1
             seq_en = seq_st + (lens[i] - 2)
             infer_chunks = extract_bio_chunk(infers[seq_st:seq_en])
