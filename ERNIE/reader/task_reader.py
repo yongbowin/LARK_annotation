@@ -58,6 +58,27 @@ class BaseReader(object):
 
     def _read_tsv(self, input_file, quotechar=None):
         """Reads a tab separated value file."""
+        """
+        Dataset format:
+        0       黑缘粗角肖叶甲触角有多大？   足粗壮；胫节具纵脊，外端角向外延伸，呈弯角状；爪具附齿。    0
+        1       暮光闪闪的姐姐是谁？       她是银甲闪闪（Shining Armor）的妹妹，同时也是韵律公主（Princess Cadance）的小姑子。       1
+        1       暮光闪闪的姐姐是谁？      在该系列中，她与最好的朋友与助手斯派克（Spike）一起生活在小马镇（Ponyville）的金橡图书馆（Golden Oak Library），研究友谊的魔法。       0
+        1       暮光闪闪的姐姐是谁？        在暮光闪闪成为天角兽之前（即S3E13前），常常给塞拉丝蒂娅公主（Princess Celestia）关于友谊的报告。[1]        0
+        1       暮光闪闪的姐姐是谁？      《我的小马驹：友谊是魔法》（英文名称：My Little Pony:Friendship is Magic）（简称MLP） 0
+        1       暮光闪闪的姐姐是谁？      动画讲述了一只名叫做暮光闪闪（Twilight Sparkle）的独角兽（在SE3E13   0
+        1       暮光闪闪的姐姐是谁？      My Little Pony:Friendship is Magic[2]   0
+        1       暮光闪闪的姐姐是谁？      出）。     0
+        1       暮光闪闪的姐姐是谁？      相当敬爱自己的老师塞拉丝蒂亚公主甚至到了精神失常的地步。    0
+        1       暮光闪闪的姐姐是谁？      于是暮光闪闪在后面的剧情中的主角地位越来越得不到明显的体现。  0
+        1       暮光闪闪的姐姐是谁？      在SE3E13中，因为破解了白胡子星璇留下的神秘魔法而被加冕成为了天角兽（公主），被尊称为“闪闪公主”。    0
+        2       我想知道红谷十二庭有哪些金融机构？       项目以建设人文型、生态型居住环境为规划目标；创造一个布局合理、功能齐全、交通便捷、绿意盎然、生活方便，有文化内涵的居住区。     1
+        2       我想知道红谷十二庭有哪些金融机构？       金融机构：工商银行、建设银行、农业银行、中国银行红谷滩支行、商业银行红谷滩支行等    0
+        2       我想知道红谷十二庭有哪些金融机构？       周边公园：沿乌砂河50米宽绿化带、乌砂河水岸公园、秋水广场、赣江市民公园 0
+        2       我想知道红谷十二庭有哪些金融机构？       周边医院：新建县人民医院、开心人药店、中寰医院       0
+        2       我想知道红谷十二庭有哪些金融机构？       周边学校：育新小学红谷滩校区、南师附小红谷滩校区、实验小学红谷滩校区中学：南昌二中红谷滩校区、南昌五中、新建二中、竞秀贵族学校    0
+        ......
+        
+        """
         with open(input_file, "r") as f:
             reader = csv.reader(f, delimiter="\t", quotechar=quotechar)
             headers = next(reader)
@@ -190,6 +211,13 @@ class BaseReader(object):
         examples = self._read_tsv(input_file)
         return len(examples)
 
+    """
+    input_file=args.train_set,  # nlpcc-dbqa/train.tsv
+    batch_size=args.batch_size,  # batch_size=8
+    epoch=args.epoch,  # epoch=3
+    shuffle=True,
+    phase="train"
+    """
     def data_generator(self,
                        input_file,
                        batch_size,
@@ -214,6 +242,15 @@ class BaseReader(object):
 
 
 class ClassifyReader(BaseReader):
+    """
+    Params:
+        vocab_path=args.vocab_path,
+        label_map_config=args.label_map_config,
+        max_seq_len=args.max_seq_len,
+        do_lower_case=args.do_lower_case,
+        in_tokens=args.in_tokens,
+        random_seed=args.random_seed
+    """
     def _read_tsv(self, input_file, quotechar=None):
         """Reads a tab separated value file."""
         with open(input_file, "r") as f:

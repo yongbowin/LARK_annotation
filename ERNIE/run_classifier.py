@@ -50,12 +50,12 @@ def main(args):
     exe = fluid.Executor(place)
 
     reader = task_reader.ClassifyReader(
-        vocab_path=args.vocab_path,
+        vocab_path=args.vocab_path,  # ../config/vocab.txt
         label_map_config=args.label_map_config,
-        max_seq_len=args.max_seq_len,
+        max_seq_len=args.max_seq_len,  # max_seq_len=512
         do_lower_case=args.do_lower_case,
         in_tokens=args.in_tokens,
-        random_seed=args.random_seed)
+        random_seed=args.random_seed)  # random_seed=1
 
     if not (args.do_train or args.do_val or args.do_test):
         raise ValueError("For args `do_train`, `do_val` and `do_test`, at "
@@ -67,13 +67,13 @@ def main(args):
 
     if args.do_train:
         train_data_generator = reader.data_generator(
-            input_file=args.train_set,
-            batch_size=args.batch_size,
-            epoch=args.epoch,
+            input_file=args.train_set,  # nlpcc-dbqa/train.tsv
+            batch_size=args.batch_size,  # batch_size=8
+            epoch=args.epoch,  # epoch=3
             shuffle=True,
             phase="train")
 
-        num_train_examples = reader.get_num_examples(args.train_set)
+        num_train_examples = reader.get_num_examples(args.train_set)  # The nums of trainset.
 
         if args.in_tokens:
             max_train_steps = args.epoch * num_train_examples // (

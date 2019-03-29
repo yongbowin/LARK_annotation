@@ -1,13 +1,13 @@
 set -eux
 
 # data path
-export MODEL_PATH="/home/wangyongbo/2019rc/LARK/ERNIE/data"
-export TASK_DATA_PATH="/home/wangyongbo/2019rc/LARK/ERNIE/data/task_data"
+export MODEL_PATH="/home/wyb/data/lark_data"
+export TASK_DATA_PATH="/home/wyb/data/lark_data/task_data"
 
 export FLAGS_sync_nccl_allreduce=1
-export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+export CUDA_VISIBLE_DEVICES=0,1,2,3
 
-python -u run_classifier.py \
+python -u ../run_classifier.py \
                    --use_cuda true \
                    --verbose true \
                    --do_train true \
@@ -18,8 +18,8 @@ python -u run_classifier.py \
                    --train_set ${TASK_DATA_PATH}/nlpcc-dbqa/train.tsv \
                    --dev_set ${TASK_DATA_PATH}/nlpcc-dbqa/dev.tsv \
                    --test_set ${TASK_DATA_PATH}/nlpcc-dbqa/test.tsv \
-                   --vocab_path config/vocab.txt \
-                   --ernie_config_path config/ernie_config.json \
+                   --vocab_path ../config/vocab.txt \
+                   --ernie_config_path ../config/ernie_config.json \
                    --checkpoints "./checkpoints" \
                    --save_steps 1000 \
                    --weight_decay  0.01 \
